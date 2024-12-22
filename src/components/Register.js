@@ -91,7 +91,7 @@ const Register = () => {
             return;
         }
         try {
-            // TODO: remove console.logs before deployment
+
             console.log(user,pwd,college,email);
             //console.log(JSON.stringify(response))
             setSuccess(true);
