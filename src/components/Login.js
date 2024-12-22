@@ -18,6 +18,7 @@ const Login = () => {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -31,21 +32,18 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            console.log(user,pwd);
+            //console.log(JSON.stringify(response))
+            
+            //clear state and controlled inputs
             setUser('');
             setPwd('');
-            navigate(from, { replace: true });
+            // setRollNo('');
+            // setNo('');
+            // setCollege('');
+            // setEmail('');
+            setSuccess(true);
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -61,7 +59,15 @@ const Login = () => {
     }
 
     return (
-
+      <>{ success ? (
+        <section>
+             <h1> You are logged in! </h1>
+             <br/>
+             <p>
+                  <a href="#">Go to Home Page </a>
+             </p>
+        </section>
+      ):(
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
@@ -94,7 +100,8 @@ const Login = () => {
                 </span>
             </p>
         </section>
-
+         )}
+        </>
     )
 }
 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{3,24}$/;
-const COLLEGE_REGEX = /^[A-z][A-z0-9- ]{3,23}$/;
+const COLLEGE_REGEX = /^[A-z][A-z - ]{3,60}$/;
 const ROLLNO_REGEX = /^(?=.*[0-9]).{0,12}$/;
 const NO_REGEX = /^(?=.*[0-9]).{0,10}$/;
 const EMAIL_REGEX = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%]).{3,24}$/;
@@ -86,6 +86,7 @@ const Register = () => {
         const v4 =  EMAIL_REGEX.test(email);
         const v5 = ROLLNO_REGEX.test(rollno);
         const v6 =  NO_REGEX.test(no);
+        
         if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) {
             setErrMsg("Invalid Entry");
             return;
@@ -171,11 +172,7 @@ const Register = () => {
                             onFocus={() => setCollegeFocus(true)}
                             onBlur={() => setCollegeFocus(false)}
                         />
-                         <p id="uidnote" className={collegeFocus && college && !validCollege ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.<br />
-                            Must begin with a letter.<br />
-                        </p>
+                        
                         <label htmlFor="Email">
                             Email ID:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
